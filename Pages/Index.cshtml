@@ -1,0 +1,168 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Image Processing";
+}
+
+<h1>Image Processing</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label for="imageFile">Choose Image File:</label>
+        <input type="file" id="imageFile" name="imageFile" accept=".jpg, .jpeg, .png" required />
+    </div>
+    <div>
+        <button type="submit">Process Image</button>
+    </div>
+</form>
+
+@if (Model.ImageProcessed)
+{
+    <div id="processedImageContainer">
+        <h2>Processed Image:</h2>
+        <img id="processedImage" src="@Model.ProcessedImageUrl" alt="Processed Image" />
+        <a href="@Url.Action("DownloadProcessedImage")" download="processed_image.jpg">Download Processed Image</a>
+    </div>
+
+<script>
+        function updateProcessedImage() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Page("Index", "ProcessedImageUrl")',
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Received data:', data);
+
+                    // Check if 'imageUrl' property exists in the returned data
+                    if (data && data.imageUrl !== undefined) {
+                        $('#processedImage').attr('src', data.imageUrl);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error retrieving processed image:', error);
+                }
+            });
+        }
+
+        updateProcessedImage();
+
+            // You can also call this function whenever you want to update the processed image
+            // For example, after a new image is processed
+            // updateProcessedImage();
+</script>
+}
+
+
+<!-- Display any error messages -->
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div style="color: red; margin-top: 10px;">
+        @Model.ErrorMessage
+    </div>
+}
+
+@* @page
+@model IndexModel
+@{
+    ViewData["Title"] = "Pixelate Image";
+
+} *@
+
+@* <form method="post" enctype="multipart/form-data">
+    <span>Select File:</span>
+    <input type="file" name="imageFile" singular />
+    <input type="submit" value="Upload" asp-page-handler="Upload" />
+    <br />
+    <span style="color:green">@Html.Raw(Model.ImageResult)</span>
+</form> *@
+
+@* <form method="post" enctype="multipart/form-data">
+    <input type="file" name="imageFile" />
+    <input type="submit" value="Pixelate" />
+</form> *@
+
+@* <div>
+    @if (Model.ImageResult != null)
+    {
+        <img src="@Url.Content(Model.ImageResult)" />
+    }
+</div>
+<br>
+<br> *@
+
+
+@* @{
+    ViewData["Title"] = "Image Processing Demo";
+}
+
+<h2>Image Processing Demo</h2>
+
+<form id="uploadForm" asp-action="UploadImage" asp-controller="YourController" method="post" enctype="multipart/form-data">
+    <!-- Your file input and other form fields go here -->
+    <input type="file" name="imageFile" />
+    <button type="submit">Upload</button>
+</form>
+
+<div id="processingStatus">
+    <!-- This section will be dynamically updated with processing status and image -->
+</div>
+@section scripts {
+    <script>
+        // AJAX to continuously update the processing status and display the processed image
+        $(document).ready(function () {
+            $("#uploadForm").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        // Update the processing status and display the processed image
+                        $("#processingStatus").html(result);
+                    },
+                    error: function () {
+                        console.error("An error occurred during image processing.");
+                    },
+                    complete: function () {
+                        // Continue polling or perform any other actions as needed
+                        setTimeout(function () {
+                            $("#uploadForm").submit();
+                        }, 1000); // Polling every 1000 milliseconds (1 second)
+                    }
+                });
+            });
+        });
+    </script>
+} *@
+
+@*         <div class="container flex-grow-1">
+            <main role="main" class="pb-3">
+                <h1>Create pixel art from an image</h1>
+                <div class="text-center">
+                    <img src="STScI-01H2TJNW2PQXCPW53VG0A2PT16.jpg" alt="your image here">
+                    <button id="upload">Upload</button>
+                </div>
+            </main>
+        </div>
+    
+    <div class="container maxwidth" id="tryit">
+        <div class="selectors">
+    <!--upload image -->
+    <label id="uploadimage" for="pixlInput">Upload Image<input type="file" class="inputbtn" id="pixlInput"></label>
+    <!-- block size -->
+
+            <label for="blocksize" class="inputbtn">Block size<span id="blockvalue">7</span><input value="7" type="range" min="2" max="25" id="blocksize" @PaletteGenerator.block_size=input value;></label>
+                
+                <!-- greyscale -->
+    <label for="greyscale" class="inputbtn" >Greyscale<input type="checkbox" id="greyscale"></label>
+    <!-- palette -->
+    <label for="palette" class="inputbtn">palette<input type="checkbox"  id="palette"></label>
+    <!-- max height -->
+    <label for="maxheight" class="inputbtn">Max Height<input type="input"  id="maxheight" placeholder="in px"></label>
+    <!-- max width -->
+    <label for="maxwidth" class="inputbtn">Max Width<input type="input" id="maxwidth" placeholder="in px"></label>
+  </div>
+    </div> *@
