@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Wsotpvm0HbkoSKMhjNIen4xXYozL9qYBiVYxS7qkso3FqqgJbEvKgZaWRZddORWyT0hKw6c2jtPOM+gB3hAqQg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Tony\\Desktop\\satans lair\\webattempt\\webattempt\\webattempt.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tony\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\Tony\\.nuget\\packages\\system.drawing.common\\8.0.0\\system.drawing.common.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
